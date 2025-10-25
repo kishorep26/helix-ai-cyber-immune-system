@@ -26,4 +26,4 @@ EXPOSE 8501
 ENV PYTHONUNBUFFERED=1
 
 # Run dashboard by default
-CMD ["streamlit", "run", "dashboard_integrated.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "dashboard_docker.py", "--server.port=8501", "--server.address=0.0.0.0"]

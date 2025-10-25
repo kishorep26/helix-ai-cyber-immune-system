@@ -44,7 +44,7 @@ if 'total_threats' not in st.session_state:
 if 'healing_events' not in st.session_state:
     st.session_state.healing_events = 0
 
-# Load models - NO CACHING
+# Load models
 def load_models():
     """Load trained models if available"""
     models = {
@@ -80,13 +80,11 @@ def load_models():
     
     return models
 
-# Load models once at startup
 if 'models' not in st.session_state:
     st.session_state.models = load_models()
 
 models = st.session_state.models
 
-# Threat prediction
 def predict_threat(sample_features=None):
     """Make prediction using loaded models or simulate"""
     if models['ensemble'] is not None and sample_features is not None:
@@ -121,12 +119,10 @@ threat_threshold = st.sidebar.slider("Threat Threshold", 0.0, 1.0, 0.7, 0.05)
 
 st.sidebar.markdown("---")
 
-# FIXED: Clear button without rerun
 if st.sidebar.button("🔄 Clear Threat Log"):
     st.session_state.threat_log = []
     st.session_state.total_threats = 0
 
-# FIXED: Simulate threat without rerun
 if st.sidebar.button("🧪 Simulate Threat"):
     confidence = np.random.uniform(0.7, 0.99)
     level, color = classify_threat_level(confidence)
@@ -316,15 +312,6 @@ with tab3:
                           color_discrete_sequence=['#ff0000', '#ff6600', '#ffcc00', '#00ff00'])
         fig_area.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
         st.plotly_chart(fig_area, use_container_width=True)
-    
-    st.subheader("🔍 Recent Threat Details")
-    if len(st.session_state.threat_log) > 0:
-        detailed_threats = pd.DataFrame(st.session_state.threat_log[:20])
-        detailed_threats['Timestamp'] = detailed_threats['Timestamp'].dt.strftime('%Y-%m-%d %H:%M:%S')
-        detailed_threats['Confidence'] = detailed_threats['Confidence'].apply(lambda x: f"{x:.2%}")
-        st.dataframe(detailed_threats, use_container_width=True, hide_index=True)
-    else:
-        st.info("No threat data available yet.")
 
 # Tab 4: Federated Network
 with tab4:
@@ -340,28 +327,6 @@ with tab4:
     })
     
     st.dataframe(nodes_data, use_container_width=True, hide_index=True)
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        fig_box = px.box(nodes_data, y='Accuracy', title="Node Accuracy Distribution",
-                        color_discrete_sequence=['#00d4ff'])
-        fig_box.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-        st.plotly_chart(fig_box, use_container_width=True)
-    
-    with col2:
-        sync_progress = np.random.randint(85, 100)
-        
-        fig_progress = go.Figure(go.Indicator(
-            mode="number+gauge+delta", value=sync_progress,
-            title={'text': "Federated Sync Progress"},
-            delta={'reference': 100},
-            gauge={'axis': {'range': [None, 100]}, 'bar': {'color': "#00d4ff"},
-                  'steps': [{'range': [0, 50], 'color': "lightgray"},
-                           {'range': [50, 80], 'color': "gray"}]}
-        ))
-        fig_progress.update_layout(height=300, paper_bgcolor='rgba(0,0,0,0)')
-        st.plotly_chart(fig_progress, use_container_width=True)
 
 # Tab 5: Historical Trends
 with tab5:
@@ -373,13 +338,11 @@ with tab5:
         'Date': dates,
         'Accuracy': np.random.uniform(0.95, 0.99, days),
         'Threats': np.random.randint(10, 50, days),
-        'False Positives': np.random.randint(1, 5, days),
-        'Self-Heal Events': np.random.randint(0, 3, days)
+        'False Positives': np.random.randint(1, 5, days)
     })
     
     fig_history = make_subplots(rows=2, cols=1,
-                                subplot_titles=("Model Accuracy Over Time", "Threat Activity Over Time"),
-                                vertical_spacing=0.15)
+                                subplot_titles=("Model Accuracy Over Time", "Threat Activity Over Time"))
     
     fig_history.add_trace(go.Scatter(x=historical_data['Date'], y=historical_data['Accuracy'],
                                      name="Accuracy", line=dict(color='#00d4ff', width=2)), row=1, col=1)
@@ -388,21 +351,8 @@ with tab5:
                                      name="Threats", line=dict(color='#ff6600', width=2),
                                      fill='tozeroy'), row=2, col=1)
     
-    fig_history.update_layout(height=600, paper_bgcolor='rgba(0,0,0,0)',
-                             plot_bgcolor='rgba(0,0,0,0)', showlegend=True)
+    fig_history.update_layout(height=600, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
     st.plotly_chart(fig_history, use_container_width=True)
-    
-    st.subheader("📊 30-Day Summary Statistics")
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.metric("Average Accuracy", f"{historical_data['Accuracy'].mean():.2%}")
-    with col2:
-        st.metric("Total Threats", f"{historical_data['Threats'].sum():,}")
-    with col3:
-        st.metric("Avg Daily Threats", f"{historical_data['Threats'].mean():.1f}")
-    with col4:
-        st.metric("Total Healing Events", f"{historical_data['Self-Heal Events'].sum()}")
 
 # Footer
 st.markdown("---")
@@ -415,12 +365,11 @@ with col1:
 with col2:
     st.info("**Updated:** " + datetime.now().strftime("%H:%M:%S"))
 with col3:
-    uptime_hours = np.random.randint(40, 72)
-    st.info(f"**Uptime:** {uptime_hours}h")
+    st.info(f"**Uptime:** {np.random.randint(40, 72)}h")
 with col4:
-    st.info("**Environment:** Production")
+    st.info("**Environment:** Local")
 
-# Auto refresh - FIXED without rerun
+# Auto refresh
 if auto_refresh:
     time.sleep(refresh_rate)
-    st.experimental_rerun()
+    st.rerun()
