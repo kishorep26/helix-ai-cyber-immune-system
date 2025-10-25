@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  dashboard:
+    build: .
+    container_name: ai-cyber-immune-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    networks:
+      - cyber-network
+
+  # Optional: Add monitoring service
+  # monitoring:
+  #   image: prom/prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   networks:
+  #     - cyber-network
+
+networks:
+  cyber-network:
+    driver: bridge

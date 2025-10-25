@@ -1,0 +1,51 @@
+================================================================================
+EXPLAINABLE AI ANALYSIS REPORT
+Advanced Self-Healing AI Cyber Immune Network
+================================================================================
+
+1. OVERVIEW
+--------------------------------------------------------------------------------
+Model Type: Random Forest Classifier (Ensemble Component)
+Number of Features: 56
+Samples Analyzed: 100
+
+2. TOP 10 MOST IMPORTANT FEATURES
+--------------------------------------------------------------------------------
+1. Feature 43: 0.1005
+2. Feature 47: 0.0851
+3. Feature 7: 0.0651
+4. Feature 46: 0.0558
+5. Feature 44: 0.0454
+6. Feature 9: 0.0421
+7. Feature 3: 0.0353
+8. Feature 17: 0.0298
+9. Feature 5: 0.0290
+10. Feature 49: 0.0263
+
+3. INTERPRETATION INSIGHTS
+--------------------------------------------------------------------------------
+The SHAP analysis reveals which features have the strongest impact on
+threat detection decisions. Features with higher SHAP values are more
+influential in determining whether a sample is classified as malicious.
+
+Key Findings:
+- Top feature (Feature 43) has mean SHAP value: 0.1005
+- Feature importance follows a power-law distribution
+- Top 20 features account for majority of prediction variance
+
+4. VISUALIZATIONS GENERATED
+--------------------------------------------------------------------------------
+1. shap_summary_plot.png - Overall feature importance ranking
+2. feature_importance_plot.png - Top features bar chart
+3. shap_waterfall_plot.png - Individual prediction breakdown
+4. shap_force_plot.png - Force plot visualization
+5. shap_dependence_plot.png - Feature interaction analysis
+
+5. RECOMMENDATIONS
+--------------------------------------------------------------------------------
+- Focus feature engineering on top 20 most important features
+- Monitor these features for drift in production deployment
+- Use SHAP values for incident response and threat hunting
+- Integrate explanations into security analyst workflow
+
+================================================================================
