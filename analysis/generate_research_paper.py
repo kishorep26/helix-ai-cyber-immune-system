@@ -16,7 +16,7 @@ print("=" * 80)
 # Load metadata if available
 metadata = {}
 if os.path.exists('model_metadata.pkl'):
-    with open('model_metadata.pkl', 'rb') as f:
+    with open('../models/model_metadata.pkl', 'rb') as f:
         metadata = pickle.load(f)
     print("Loaded model metadata")
 

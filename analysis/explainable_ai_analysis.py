@@ -14,7 +14,7 @@ print("=" * 80)
 # Load the ensemble model
 print("\nLoading trained ensemble model...")
 try:
-    with open('ensemble.pkl', 'rb') as f:
+    with open('../models/ensemble.pkl', 'rb') as f:
         ensemble_data = pickle.load(f)
     print("Ensemble model loaded successfully")
 except:
@@ -23,7 +23,7 @@ except:
 
 # Load metadata
 try:
-    with open('model_metadata.pkl', 'rb') as f:
+    with open('../models/model_metadata.pkl', 'rb') as f:
         metadata = pickle.load(f)
     print("Metadata loaded successfully")
 except:
@@ -223,7 +223,7 @@ report.append("=" * 80)
 
 # Save report
 report_text = "\n".join(report)
-with open('explainability_report.txt', 'w') as f:
+with open('../docs/explainability_report.txt', 'w') as f:
     f.write(report_text)
 
 print("\nSaved: explainability_report.txt")

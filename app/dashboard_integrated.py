@@ -55,14 +55,14 @@ def load_models():
     
     if os.path.exists('ensemble.pkl'):
         try:
-            with open('ensemble.pkl', 'rb') as f:
+            with open('../models/ensemble.pkl', 'rb') as f:
                 models['ensemble'] = pickle.load(f)
         except:
             pass
     
     if os.path.exists('feature_engineer.pkl'):
         try:
-            with open('feature_engineer.pkl', 'rb') as f:
+            with open('../models/feature_engineer.pkl', 'rb') as f:
                 fe_data = pickle.load(f)
                 if isinstance(fe_data, dict) and 'scaler' in fe_data:
                     models['feature_engineer'] = fe_data['scaler']
@@ -73,7 +73,7 @@ def load_models():
     
     if os.path.exists('model_metadata.pkl'):
         try:
-            with open('model_metadata.pkl', 'rb') as f:
+            with open('../models/model_metadata.pkl', 'rb') as f:
                 models['metadata'] = pickle.load(f)
         except:
             pass
