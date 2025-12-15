@@ -1,51 +1,67 @@
 import { Groq } from 'groq-sdk';
 import { NextResponse } from 'next/server';
 
-const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY || 'dummy_key', // Fallback to avoid crash on init, checks later
-});
-
 export async function POST(req: Request) {
     try {
-        const { cpu, entropy, processes, attackType } = await req.json();
-
-        if (!process.env.GROQ_API_KEY) {
+        // Strict Key Validation
+        const apiKey = process.env.GROQ_API_KEY;
+        if (!apiKey) {
+            console.error("GROQ_API_KEY is missing in environment variables.");
             return NextResponse.json({
-                analysis: "MOCK ANALYSIS: AI Neural Core offline (Missing API Key). System logic suggests high probability of " + (attackType || "anomaly") + ".",
-                action: "Recommended: Manual intervention or automated countermeasure.",
-                confidence: 0.85
-            });
+                error: "Server Configuration Error: GROQ_API_KEY not found."
+            }, { status: 500 });
         }
+
+        const groq = new Groq({ apiKey });
+        const { cpu, entropy, processes, attackType, logs } = await req.json();
+
+        // Advanced Graduate-Level Prompt
+        const systemPrompt = `
+      You are HELIX, a military-grade autonomous cybersecurity agent.
+      
+      Your task:
+      1. Analyze the provided system telemetry (CPU, Entropy, Processes, Logs).
+      2. Identify the specific threat signature (e.g., Cryptojacking, Ransomware, DDoS).
+      3. Recommend precise, technical countermeasures (e.g., "Kill PID 455", "Flush iptables", "Isolate subnet").
+      
+      Output strictly JSON:
+      {
+        "analysis": "Technical diagnosis of the threat vector.",
+        "action": "Specific, executable countermeasure.",
+        "confidence": 0.0-1.0
+      }
+    `;
+
+        const userPrompt = `
+      TELEMETRY DUMP:
+      - CPU Load: ${cpu.toFixed(1)}%
+      - File Entropy: ${entropy.toFixed(3)}
+      - Top Process: ${processes[0]?.name || "N/A"} (PID: ${processes[0]?.pid})
+      - Network Flags: ${attackType || "None detected"}
+      - Recent Log: ${logs?.[0]?.message || "N/A"}
+      
+      Diagnose immediately.
+    `;
 
         const completion = await groq.chat.completions.create({
             messages: [
-                {
-                    role: "system",
-                    content: "You are CORTEX, an advanced cybersecurity AI. Analyze the system metrics provided. Be concise, technical, and authoritative. Output JSON with 'analysis', 'action', and 'confidence'."
-                },
-                {
-                    role: "user",
-                    content: `System Status:
-          - CPU Load: ${cpu.toFixed(1)}%
-          - Entropy: ${entropy.toFixed(3)}
-          - Active Attack Signature: ${attackType || "None"}
-          - Top Process: ${processes[0]?.name || "Unknown"}
-          
-          Analyze threat level and recommend countermeasures.`
-                }
+                { role: "system", content: systemPrompt },
+                { role: "user", content: userPrompt }
             ],
-            model: "llama3-70b-8192",
+            model: "llama3-70b-8192", // Using the big model for best analysis
+            max_tokens: 150,
+            temperature: 0.2, // Low temperature for deterministic, technical output
             response_format: { type: "json_object" },
         });
 
         const result = JSON.parse(completion.choices[0]?.message?.content || '{}');
         return NextResponse.json(result);
 
-    } catch (error) {
-        console.error('AI Analysis Error:', error);
+    } catch (error: any) {
+        console.error('HELIX AI Core Error:', error);
         return NextResponse.json({
-            error: "AI Analysis Failed",
-            details: error instanceof Error ? error.message : String(error)
+            error: "Neural Core Malfunction",
+            details: error.message
         }, { status: 500 });
     }
 }
