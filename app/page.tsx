@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { CortexSimulator, SystemState, LogEntry, Packet } from '../lib/simulation';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { Shield, Activity } from 'lucide-react';
+import { Shield, Activity, Share2 } from 'lucide-react';
 import { MetricCard } from '@/components/MetricCard';
 import { ControlPanel } from '@/components/ControlPanel';
 import { NetworkLog } from '@/components/NetworkLog';
@@ -58,7 +58,7 @@ export default function Dashboard() {
 
     const handleAnalyze = async () => {
         if (!state) return;
-        addLog('INFO', 'Initiating AI Neural Analysis...');
+        addLog('INFO', 'Initiating SENTINEL Neural Analysis...');
 
         try {
             const res = await fetch('/api/analyze', {
@@ -86,22 +86,28 @@ export default function Dashboard() {
         }
     };
 
-    if (!state) return <div className="bg-black h-screen w-full text-cyan-500 font-mono flex items-center justify-center animate-pulse">INITIALIZING CORTEX KERNEL...</div>;
+    if (!state) return <div className="bg-black h-screen w-full text-cyan-500 font-mono flex items-center justify-center animate-pulse">INITIALIZING SENTINEL CORE...</div>;
 
     return (
         <div className="min-h-screen bg-black text-slate-300 font-mono p-4 selection:bg-cyan-500 selection:text-black overflow-hidden relative">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#111_0%,_#000_100%)] z-0 pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#0a0a0f_0%,_#000_100%)] z-0 pointer-events-none" />
+            <div className="scanlines" />
 
             <div className="relative z-10 max-w-7xl mx-auto flex flex-col gap-4 h-[95vh]">
 
                 {/* HEADER */}
-                <header className="flex justify-between items-center border-b border-white/10 pb-4">
+                <header className="flex justify-between items-center border-b border-white/10 pb-4 backdrop-blur-md">
                     <div className="flex items-center gap-3">
                         <Shield className="w-8 h-8 text-cyan-400" />
-                        <h1 className="text-2xl font-bold tracking-widest text-white font-display">CORTEX <span className="text-cyan-400">//</span> DEFENSE</h1>
+                        <div>
+                            <h1 className="text-2xl font-bold tracking-[0.2em] text-white font-display">SENTINEL</h1>
+                            <div className="text-[10px] text-cyan-500 tracking-widest uppercase">Autonomous Cyber Immune System</div>
+                        </div>
                     </div>
-                    <div className={`px-4 py-1 border ${state.status === 'SECURE' ? 'border-cyan-500 text-cyan-400 bg-cyan-950/20' : 'border-red-500 text-red-500 bg-red-950/20'} animate-pulse font-bold`}>
-                        STATUS: {state.status}
+                    <div className="flex items-center gap-4">
+                        <div className={`px-4 py-1 border ${state.status === 'SECURE' ? 'border-cyan-500 text-cyan-400 bg-cyan-950/20 shadow-[0_0_10px_rgba(6,182,212,0.2)]' : 'border-red-500 text-red-500 bg-red-950/20 shadow-[0_0_15px_rgba(239,68,68,0.4)]'} transition-all duration-300 font-bold tracking-widest`}>
+                            {state.status}
+                        </div>
                     </div>
                 </header>
 
@@ -109,16 +115,16 @@ export default function Dashboard() {
 
                     {/* LEFT: METRICS & CONTROLS */}
                     <div className="col-span-12 md:col-span-3 flex flex-col gap-4">
-                        <MetricCard type="CPU" value={state.cpu} label="CPU LOAD" />
-                        <MetricCard type="ENTROPY" value={state.entropy} label="FS ENTROPY" sublabel="Shannon Index (0-1)" />
+                        <MetricCard type="CPU" value={state.cpu} label="CORE LOAD" />
+                        <MetricCard type="ENTROPY" value={state.entropy} label="DATA ENTROPY" sublabel="Shannon Index (0-1)" />
                         <ControlPanel onAttack={handleAttack} onDefense={handleDefense} onAnalyze={handleAnalyze} />
                     </div>
 
                     {/* CENTER: VISUALIZATION */}
                     <div className="col-span-12 md:col-span-6 flex flex-col gap-4">
                         {/* MAIN CHART */}
-                        <div className="h-2/3 border border-white/10 bg-white/5 p-4 relative overflow-hidden">
-                            <div className="absolute top-2 left-4 text-xs text-cyan-500/50 flex items-center gap-2">
+                        <div className="h-2/3 border border-white/10 bg-white/5 p-4 relative overflow-hidden backdrop-blur-sm">
+                            <div className="absolute top-2 left-4 text-xs text-cyan-500/50 flex items-center gap-2 font-bold tracking-wider">
                                 <Activity size={12} />
                                 REAL-TIME THREAT SIGNATURE
                             </div>
@@ -139,8 +145,8 @@ export default function Dashboard() {
                         </div>
 
                         {/* PROCESS LIST */}
-                        <div className="flex-1 border border-white/10 bg-white/5 p-4 overflow-hidden">
-                            <div className="text-xs text-slate-500 mb-2">LIVE PROCESS MONITOR</div>
+                        <div className="flex-1 border border-white/10 bg-white/5 p-4 overflow-hidden backdrop-blur-sm">
+                            <div className="text-xs text-slate-500 mb-2 font-bold tracking-wider">LIVE PROCESS MONITOR</div>
                             <table className="w-full text-xs font-mono">
                                 <thead className="text-slate-600 border-b border-white/5">
                                     <tr>
