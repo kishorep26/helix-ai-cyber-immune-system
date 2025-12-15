@@ -6,22 +6,29 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
 *.egg-info/
 .pytest_cache/
 
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb_checkpoints
+notebooks/  # Development only - not needed for deployment
 
 # Data files (too large for git)
 csvs/
 *.csv
 dataset/
+data/  # Raw data not needed for deployment
 
 # Model files (too large - optional: use Git LFS)
 *.h5
 *.keras
 *.pkl
+models/  # Pre-trained models not used
+
+# Analysis (development only)
+analysis/
 
 # OS
 .DS_Store
@@ -42,3 +49,12 @@ Thumbs.db
 
 # Environment
 .env
+secrets_config.py  # Keep template, ignore actual secrets
+
+# Docker
+.dockerignore
+
+# Generated reports
+*_report_*.md
+*_report_*.json
+node_modules

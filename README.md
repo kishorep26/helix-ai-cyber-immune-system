@@ -1,91 +1,56 @@
-# 🛡️ Advanced Self-Healing AI Cyber Immune Network
+# CORTEX // NEXT-GEN HOLOGRAPHIC SOC
+### Advanced Self-Healing Cyber Immune Network (Master's Thesis Edition)
 
-A robust, research-grade AI cybersecurity platform for real-time malware detection, featuring deep learning, federated learning, adversarial training, and explainable dashboards.
+![Status](https://img.shields.io/badge/STATUS-OPERATIONAL-cyan?style=for-the-badge&logo=shield)
+![Tech](https://img.shields.io/badge/TECH-NEXT.JS%20%7C%20REACT%20%7C%20TAILWIND-black?style=for-the-badge)
 
----
-
-## 🚀 Live Demo
-
-👉 **Try it online:**  
-[https://ai-cyber-immune-network-5qbduummloktzgengfpuje.streamlit.app/](https://ai-cyber-immune-network-5qbduummloktzgengfpuje.streamlit.app/)
-
-![Dashboard Screenshot](/images/cyberimmune.png)
+A master's level cybersecurity interface featuring:
+- **Real-Time Simulation Engine** (Entropy, CPU Physics, Network Traffic)
+- **Holographic UI** (Glassmorphism, Neon Accents, Framer Motion)
+- **Automated Threat Response** (Self-Healing Logic)
 
 ---
 
-## 🎯 Project Overview
+## 🚀 DEPLOY TO VERCEL (1-CLICK)
 
-This project implements an advanced, self-healing cyber immune network that autonomously detects and responds to malware threats. Combining deep neural networks (DNN), ensemble models, federated learning, adversarial (GAN-based) training, and explainable AI (XAI), the system achieves:
+This project is now a **Native Next.js Application**, fully compatible with Vercel.
 
-- **99.1% malware detection accuracy** (CIC-MalMem-2022 dataset)
-- Real-time interactive monitoring and simulation (Streamlit dashboard)
-- SHAP-based explainability for transparency in AI decisions
-- Automated research documentation
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Initialize CORTEX Next.js System"
+   git push origin main
+   ```
 
----
-
-## 🔑 Key Features
-
-- **Deep Learning & Ensemble Models:** Robust multi-model threat detection
-- **Federated Learning:** Distributed training for privacy and scalability
-- **Adversarial Training:** GAN-generated synthetic attacks for model hardening
-- **Explainable AI:** SHAP/feature importance integrated into reports & dashboard
-- **Automated reporting:** Generates research paper & explainability outputs
-- **Cloud Deployment:** Hosted on Streamlit Cloud for instant public access
+2. **Deploy**
+   - Go to [Vercel.com](https://vercel.com)
+   - Click **"Add New..."** -> **"Project"**
+   - Import your GitHub Repository
+   - Click **"Deploy"** (No configuration needed, it auto-detects Next.js)
 
 ---
 
-## 🖥️ Technologies
+## 🛠️ LOCAL DEVELOPMENT
 
-- Python
-- Streamlit
-- TensorFlow / Keras
-- scikit-learn
-- Deep Learning (Neural Networks)
-- Federated Learning (TFF)
-- SHAP (Explainable AI)
-- Pandas, NumPy
-- Plotly (visualization)
-- ReportLab (PDF automation)
-- Jupyter Lab / Notebooks
+To run the simulation node locally:
 
----
+```bash
+# 1. Install Dependencies
+npm install
 
-## ⚡ Quick Start (Local)
+# 2. Ignite Kernel
+npm run dev
+```
 
-pip install -r requirements.txt
-
-streamlit run app/dashboard_integrated.py
+Access the terminal at `http://localhost:3000`
 
 ---
 
-## 🌐 Deploying Your Own Instance
+## 🔬 TECHNICAL ARCHITECTURE
 
-1. Fork/clone this repo
-2. Go to [Streamlit Cloud](https://streamlit.io/cloud)
-3. Deploy a new app, main file: `app/dashboard_integrated.py`
-4. Set your repo and branch in the Streamlit Cloud UI
-5. (Repo must be public, and models/data must fit in Streamlit Cloud quotas.)
-6. Wait for build & access your public dashboard URL!
+- **Frontend:** React 18 / Next.js 14 (App Router)
+- **Styling:** Tailwind CSS + Custom "Cyberpunk" Config
+- **Simulation:** Client-side TypeScript Physics Engine (`lib/simulation.ts`)
+- **Visuals:** Recharts (Vector Graphics) + Lucide (Iconography)
 
----
-
-## 📊 Results & Documentation
-
-- **Detection Accuracy:** 99.1%
-- **Dataset:** CIC-MalMem-2022 (58,596 samples)
-- **End-to-end inference:** < 50ms/sample
-- **Explainability:** SHAP/feature-importance available on dashboard & docs
-
-Research paper, explainability report, and all output plots/docs are in `docs/`.
-
----
-
-## 🧠 Project Highlights
-
-- Multi-layer neural net with adversarial training
-- Ensemble voting and federated (TFF) learning
-- Automated research PDF and explainability report
-- Real-time dashboards for monitoring, simulation, XAI
-
----
+No external servers required. simulation runs purely in the browser thread.
