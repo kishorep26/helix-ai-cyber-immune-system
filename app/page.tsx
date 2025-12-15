@@ -79,8 +79,8 @@ export default function Dashboard() {
                 addLog('SYS', `[AI] DIAGNOSIS: ${data.analysis}`);
                 addLog('SYS', `[AI] ACTION: ${data.action}`);
             } else {
-                addLog('WARN', `AI ERROR: ${data.error || "Unknown Failure"}`);
-                addLog('WARN', 'Check API Key Configuration.');
+                addLog('WARN', `AI ERROR: ${data.details || data.error || "Unknown Failure"}`);
+                if (data.code === 401) addLog('CRIT', 'INVALID API KEY. CHECK VERCEL SETTINGS.');
             }
 
         } catch (e) {

@@ -48,9 +48,9 @@ export async function POST(req: Request) {
                 { role: "system", content: systemPrompt },
                 { role: "user", content: userPrompt }
             ],
-            model: "llama3-70b-8192", // Using the big model for best analysis
+            model: "mixtral-8x7b-32768", // Switching to Mixtral for high speed/reliability
             max_tokens: 150,
-            temperature: 0.2, // Low temperature for deterministic, technical output
+            temperature: 0.1,
             response_format: { type: "json_object" },
         });
 
@@ -61,7 +61,8 @@ export async function POST(req: Request) {
         console.error('HELIX AI Core Error:', error);
         return NextResponse.json({
             error: "Neural Core Malfunction",
-            details: error.message
+            details: error.message || String(error),
+            code: error.status || 500
         }, { status: 500 });
     }
 }
