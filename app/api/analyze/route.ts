@@ -48,7 +48,7 @@ export async function POST(req: Request) {
                 { role: "system", content: systemPrompt },
                 { role: "user", content: userPrompt }
             ],
-            model: "mixtral-8x7b-32768", // Switching to Mixtral for high speed/reliability
+            model: "llama-3.1-70b-versatile", // Current stable flagship
             max_tokens: 150,
             temperature: 0.1,
             response_format: { type: "json_object" },
