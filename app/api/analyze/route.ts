@@ -48,7 +48,7 @@ export async function POST(req: Request) {
                 { role: "system", content: systemPrompt },
                 { role: "user", content: userPrompt }
             ],
-            model: "llama-3.1-70b-versatile", // Current stable flagship
+            model: "llama-3.3-70b-versatile", // Latest stable model (Dec 2025)
             max_tokens: 150,
             temperature: 0.1,
             response_format: { type: "json_object" },
