@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { CortexSimulator, SystemState, LogEntry, Packet } from '../lib/simulation';
+import { HelixSimulator, SystemState, LogEntry, Packet } from '../lib/simulation';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { Shield, Activity } from 'lucide-react';
 import { MetricCard } from '@/components/MetricCard';
@@ -9,7 +9,7 @@ import { ControlPanel } from '@/components/ControlPanel';
 import { NetworkLog } from '@/components/NetworkLog';
 
 export default function Dashboard() {
-    const [sim] = useState(() => new CortexSimulator());
+    const [sim] = useState(() => new HelixSimulator());
     const [state, setState] = useState<SystemState | null>(null);
     const [history, setHistory] = useState<{ time: number, cpu: number, entropy: number }[]>([]);
     const [logs, setLogs] = useState<LogEntry[]>([]);

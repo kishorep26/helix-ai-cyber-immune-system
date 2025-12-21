@@ -34,7 +34,7 @@ export type LogEntry = {
     message: string;
 };
 
-export class CortexSimulator {
+export class HelixSimulator {
     private cpuHistory: number[] = Array(60).fill(5);
     private entropyHistory: number[] = Array(60).fill(0.2);
     private activeAttack: 'NONE' | 'CRYPTOMINER' | 'RANSOMWARE' | 'DDOS' = 'NONE';
