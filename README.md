@@ -1,5 +1,7 @@
 # HELIX - Next-Gen Holographic Security Operations Center
 
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-brightgreen?logo=vercel)](https://ai-cyber-immune-network.vercel.app) [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/kishorep26/helix-ai-cyber-immune-system)](https://github.com/kishorep26/helix-ai-cyber-immune-system/releases)
+
 ## Overview
 An advanced self-healing AI cyber immune network designed for master's thesis research. HELIX provides a cutting-edge cybersecurity interface featuring real-time simulation engines, holographic UI elements, and automated threat response capabilities. Achieves 99.1% accuracy in malware detection through sophisticated machine learning algorithms and self-healing logic.
 
